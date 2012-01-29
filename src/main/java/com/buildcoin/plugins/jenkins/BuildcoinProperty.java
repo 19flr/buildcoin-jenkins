@@ -2,6 +2,7 @@ package com.buildcoin.plugins.jenkins;
 
 import hudson.model.JobProperty;
 import hudson.model.AbstractProject;
+import com.buildcoin.plugins.jenkins.model.Endpoint;
 
 import java.util.List;
 

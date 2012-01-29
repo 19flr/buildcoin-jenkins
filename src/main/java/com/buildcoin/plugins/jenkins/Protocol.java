@@ -16,7 +16,6 @@ import java.net.DatagramSocket;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.URL;
@@ -43,18 +42,7 @@ public enum Protocol {
             DatagramPacket packet = new DatagramPacket(data, data.length, InetAddress.getByName(hostnamePort.hostname), hostnamePort.port);
             socket.send(packet);
 		}
-
-		@Override
-		public void validateUrl(String url) {
-			try {
-				HostnamePort hnp = HostnamePort.parseUrl(url);
-				if (hnp == null) {
-					throw new Exception();
-				}
-			} catch (Exception e) {
-				throw new RuntimeException("Invalid Url: hostname:port");
-			}
-		}
+		
 	},
 	TCP {
 		@Override
@@ -83,14 +71,6 @@ public enum Protocol {
             output.write(data);
             output.flush();
             output.close();
-		}
-
-		public void validateUrl(String url) {
-			try {
-				new URL(url);
-			} catch (MalformedURLException e) {
-				throw new RuntimeException("Invalid Url: http://hostname:port/path");
-			}
 		}
 	};
 
@@ -152,14 +132,4 @@ public enum Protocol {
 
 	abstract protected void send(String url, byte[] data) throws IOException;
 
-	public void validateUrl(String url) {
-		try {
-			HostnamePort hnp = HostnamePort.parseUrl(url);
-			if (hnp == null) {
-				throw new Exception();
-			}
-		} catch (Exception e) {
-			throw new RuntimeException("Invalid Url: hostname:port");
-		}
-	}
 }
