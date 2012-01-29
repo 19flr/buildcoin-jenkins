@@ -3,6 +3,7 @@ package com.buildcoin.plugins.jenkins;
 import hudson.EnvVars;
 import hudson.model.AbstractBuild;
 import hudson.model.Job;
+import hudson.model.Cause;
 import hudson.model.ParameterValue;
 import hudson.model.ParametersAction;
 import hudson.model.Run;
@@ -27,6 +28,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.buildcoin.plugins.jenkins.model.BuildState;
+import com.buildcoin.plugins.jenkins.model.BuildCause;
 import com.buildcoin.plugins.jenkins.model.JobState;
 import com.buildcoin.plugins.jenkins.model.ScmChange;
 
@@ -135,8 +137,14 @@ public enum Protocol {
 				scmChange.setScmMessage(change.getMsg());
 				scmChange.setScmRevision(change.getCommitId());
 				scmChanges.add(scmChange);
-            }
+			}
 			buildState.setScmChanges(scmChanges);
+			List<BuildCause> buildCauses = new LinkedList<BuildCause>();
+			for (Cause cause : build.getCauses()) {
+				BuildCause buildCause = new BuildCause();
+				buildCause.setShortDescription(cause.getShortDescription());
+			}
+			buildState.setCauses(buildCauses);
 		}
 
 		return gson.toJson(jobState).getBytes();

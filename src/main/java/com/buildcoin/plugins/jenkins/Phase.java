@@ -12,7 +12,7 @@ public enum Phase {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void handlePhase(Run run, String status, TaskListener listener) {
-		HudsonNotificationProperty property = (HudsonNotificationProperty) run.getParent().getProperty(HudsonNotificationProperty.class);
+		BuildcoinProperty property = (BuildcoinProperty) run.getParent().getProperty(BuildcoinProperty.class);
 		if (property != null) {
 			List<Endpoint> targets = property.getEndpoints();
 			for (Endpoint target : targets) {

@@ -17,6 +17,8 @@ public class BuildState {
 
 	private String url;
 	
+	private List<BuildCause> causes;
+	
 	private List<ScmChange> scmChanges;
 	
 	private Map<String, String> parameters;
@@ -35,6 +37,14 @@ public class BuildState {
 
 	public void setPhase(Phase phase) {
 		this.phase = phase;
+	}
+	
+	public List<BuildCause> getCauses() {
+		return causes;
+	}
+
+	public void setCauses(List<BuildCause> causes) {
+		this.causes = causes;
 	}
 
 	public String getStatus() {
