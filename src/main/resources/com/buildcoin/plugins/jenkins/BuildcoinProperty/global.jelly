@@ -13,7 +13,7 @@
 									<f:entry title="URL" description="Enter a URL provided by Buildcoin"
 										field="url">
 										<f:textbox name="url" value="${endpoint.url}" />
-										<f:hidden name="protocol" value="HTTP" />
+										<input type="hidden" name="protocol" value="HTTP" />
 									</f:entry>
 								</td>
 								<td>
