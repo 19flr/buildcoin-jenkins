@@ -62,12 +62,12 @@ public final class BuildcoinPropertyDescriptor extends JobPropertyDescriptor {
 				}
 			}
 		}
-		BuildcoinProperty buildcoinProperty = new BuildcoinProperty(endpoints);
-		return buildcoinProperty;
+		BuildcoinProperty notificationProperty = new BuildcoinProperty(endpoints);
+		return notificationProperty;
 	}
 
-	public FormValidation doCheckUrl(@QueryParameter(value = "url", fixEmpty = true) String url) {
-		Protocol protocol = Protocol.HTTP;
+	public FormValidation doCheckUrl(@QueryParameter(value = "url", fixEmpty = true) String url, @QueryParameter(value = "protocol") String protocolParameter) {
+		Protocol protocol = Protocol.valueOf(protocolParameter);
 		try {
 			protocol.validateUrl(url);
 			return FormValidation.ok();
