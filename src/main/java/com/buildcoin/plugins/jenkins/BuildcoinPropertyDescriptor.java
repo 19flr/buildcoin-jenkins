@@ -14,12 +14,12 @@ import org.kohsuke.stapler.StaplerRequest;
 @Extension
 public final class BuildcoinPropertyDescriptor extends JobPropertyDescriptor {
 	
-	public static String buildcoinUrl;
+	public static String buildcoinKey;
 	
 	public static boolean isDebugMode;
 	
-	public String getBuildcoinUrl() {
-		return buildcoinUrl;
+	public String getBuildcoinKey() {
+		return buildcoinKey;
 	}
 	
 	public BuildcoinPropertyDescriptor() {
@@ -43,18 +43,18 @@ public final class BuildcoinPropertyDescriptor extends JobPropertyDescriptor {
 	
 	@Override
 	public boolean configure(StaplerRequest req, JSONObject formData) {
-		buildcoinUrl = formData.getString("buildcoinUrl");
+		buildcoinKey = formData.getString("buildcoinKey");
 		isDebugMode = formData.getBoolean("buildcoinDebugMode");
 		endpoints.clear();
-		if (!buildcoinUrl.isEmpty() && !isDebugMode) {
+		if (!buildcoinKey.isEmpty() && !isDebugMode) {
 			Endpoint endpoint = new Endpoint();
 			endpoint.setProtocol(Protocol.HTTP);
-			endpoint.setUrl(formData.getString("buildcoinUrl"));
+			endpoint.setUrl("http://buildcoin.com/hooks/" + formData.getString("buildcoinKey") + "/jenkins");
 			endpoints.add(endpoint);
-		} else if (isDebugMode) {
+		} else if (!buildcoinKey.isEmpty() && isDebugMode) {
 			Endpoint endpoint = new Endpoint();
 			endpoint.setProtocol(Protocol.HTTP);
-			endpoint.setUrl("http://localhost:8080/hooks/" + formData.getString("buildcoinUrl") + "/jenkins");
+			endpoint.setUrl("http://localhost:8080/hooks/" + formData.getString("buildcoinKey") + "/jenkins");
 			endpoints.add(endpoint);
 		}
 		save();
