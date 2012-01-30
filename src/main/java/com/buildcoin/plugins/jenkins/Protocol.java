@@ -117,8 +117,6 @@ public enum Protocol {
 				scmChange.setScmAuthor(change.getAuthor().getDisplayName());
 				scmChange.setScmMessage(change.getMsg());
 				scmChange.setScmRevision(change.getCommitId());
-				System.out.println(change.getMsgAnnotated());
-				
 				scmChanges.add(scmChange);
 			}
 			buildState.setScmChanges(scmChanges);
