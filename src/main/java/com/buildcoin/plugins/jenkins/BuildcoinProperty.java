@@ -12,21 +12,9 @@ import java.util.List;
 
 import net.sf.json.JSONObject;
 
-import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 
 public class BuildcoinProperty extends JobProperty<AbstractProject<?, ?>> {
-
-	private final boolean buildcoinDisabled;
-
-	@DataBoundConstructor
-	public BuildcoinProperty(boolean buildcoinDisabled) {
-		this.buildcoinDisabled = buildcoinDisabled;
-	}
-	
-    public boolean isProjectDisabled() {
-        return buildcoinDisabled;
-    }
     
     @Override
     public BuildcoinPropertyDescriptor getDescriptor() {
