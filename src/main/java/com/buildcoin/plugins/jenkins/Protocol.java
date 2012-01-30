@@ -22,6 +22,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -115,8 +116,9 @@ public enum Protocol {
 				ScmChange scmChange = new ScmChange();
 				scmChange.setScmAuthor(change.getAuthor().getDisplayName());
 				scmChange.setScmMessage(change.getMsg());
-				System.out.println("scm revision: " + change.getCommitId());
 				scmChange.setScmRevision(change.getCommitId());
+				System.out.println(change.getMsgAnnotated());
+				
 				scmChanges.add(scmChange);
 			}
 			buildState.setScmChanges(scmChanges);
