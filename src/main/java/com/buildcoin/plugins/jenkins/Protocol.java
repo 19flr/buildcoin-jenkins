@@ -124,6 +124,7 @@ public enum Protocol {
 			for (Cause cause : build.getCauses()) {
 				BuildCause buildCause = new BuildCause();
 				buildCause.setShortDescription(cause.getShortDescription());
+				buildCauses.add(buildCause);
 			}
 			buildState.setCauses(buildCauses);
 		}
