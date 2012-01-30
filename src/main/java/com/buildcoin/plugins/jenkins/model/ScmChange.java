@@ -28,8 +28,8 @@ public class ScmChange {
 		return scmRevision;
 	}
 
-	public void setScmRevision(String scmMessage) {
-		this.scmRevision = scmMessage;
+	public void setScmRevision(String scmRevision) {
+		this.scmRevision = scmRevision;
 	}
 	
 }
