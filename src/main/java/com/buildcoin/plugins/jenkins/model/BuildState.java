@@ -7,15 +7,13 @@ import java.util.Map;
 
 public class BuildState {
 
-	private String fullUrl;
-
-	private int number;
+	private int buildNumber;
 
 	private Phase phase;
 
 	private String status;
 
-	private String url;
+	private String buildUrl;
 	
 	private List<BuildCause> causes;
 	
@@ -23,12 +21,12 @@ public class BuildState {
 	
 	private Map<String, String> parameters;
 
-	public int getNumber() {
-		return number;
+	public int getBuildNumber() {
+		return buildNumber;
 	}
 
-	public void setNumber(int number) {
-		this.number = number;
+	public void setBuildNumber(int buildNumber) {
+		this.buildNumber = buildNumber;
 	}
 
 	public Phase getPhase() {
@@ -55,20 +53,12 @@ public class BuildState {
 		this.status = status;
 	}
 
-	public String getUrl() {
-		return url;
+	public String getBuildUrl() {
+		return buildUrl;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public String getFullUrl() {
-		return fullUrl;
-	}
-
-	public void setFullUrl(String fullUrl) {
-		this.fullUrl = fullUrl;
+	public void setBuildUrl(String buildUrl) {
+		this.buildUrl = buildUrl;
 	}
 	
 	public List<ScmChange> getScmChanges() {

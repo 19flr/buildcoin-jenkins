@@ -83,20 +83,15 @@ public enum Protocol {
 
 	@SuppressWarnings("deprecation")
 	private byte[] buildMessage(Job job, Run run, Phase phase, String status) {
+		String rootUrl = Hudson.getInstance().getRootUrl();
 		JobState jobState = new JobState();
-		jobState.setName(job.getName());
-		jobState.setUrl(job.getUrl());
+		jobState.setJobName(job.getName());
+		jobState.setJobUrl(rootUrl + job.getUrl());
 		BuildState buildState = new BuildState();
-		buildState.setNumber(run.number);
-		buildState.setUrl(run.getUrl());
+		buildState.setBuildNumber(run.getNumber());
+		buildState.setBuildUrl(rootUrl + run.getUrl());
 		buildState.setPhase(phase);
 		buildState.setStatus(status);
-		
-		try {
-			buildState.setFullUrl(Hudson.getInstance().getRootUrl() + run.getBuildStatusUrl());
-		} catch (IllegalStateException ignored) {
-			// Ignored
-		}
 		jobState.setBuild(buildState);
 
 		ParametersAction paramsAction = run.getAction(ParametersAction.class);
@@ -130,9 +125,9 @@ public enum Protocol {
 					UpstreamBuild upstreamBuild = new UpstreamBuild();
 					buildCause.setCauseType(CauseType.UPSTREAM);
 					upstreamBuild.setBuildNumber(upstreamCause.getUpstreamBuild());
-					upstreamBuild.setBuildUrl(Hudson.getInstance().getRootUrl() + upstreamCause.getUpstreamUrl() + upstreamBuild.getBuildNumber());
-					upstreamBuild.setProjectName(upstreamCause.getUpstreamProject());
-					upstreamBuild.setProjectUrl(Hudson.getInstance().getRootUrl() + upstreamCause.getUpstreamUrl());
+					upstreamBuild.setBuildUrl(rootUrl + upstreamCause.getUpstreamUrl() + upstreamBuild.getBuildNumber());
+					upstreamBuild.setJobName(upstreamCause.getUpstreamProject());
+					upstreamBuild.setJobUrl(rootUrl + upstreamCause.getUpstreamUrl());
 					buildCause.setUpstreamBuild(upstreamBuild);
 				} else if (cause.getClass() == Cause.UserCause.class || cause.getClass() == Cause.UserIdCause.class) {
 					buildCause.setCauseType(CauseType.MANUAL);

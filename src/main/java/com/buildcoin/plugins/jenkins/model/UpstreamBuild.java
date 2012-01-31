@@ -2,28 +2,28 @@ package com.buildcoin.plugins.jenkins.model;
 
 public class UpstreamBuild {
 	
-	private String projectName;
+	private String jobName;
 	
-	private String projectUrl;
+	private String jobUrl;
 	
 	private int buildNumber;
 	
 	private String buildUrl;
 	
-	public String getProjectName() {
-		return projectName;
+	public String getJobName() {
+		return jobName;
 	}
 
-	public void setProjectName(String projectName) {
-		this.projectName = projectName;
+	public void setJobName(String jobName) {
+		this.jobName = jobName;
 	}
 	
-	public String getProjectUrl() {
-		return projectUrl;
+	public String getJobUrl() {
+		return jobUrl;
 	}
 
-	public void setProjectUrl(String projectUrl) {
-		this.projectUrl = projectUrl;
+	public void setJobUrl(String jobUrl) {
+		this.jobUrl = jobUrl;
 	}
 	
 	public int getBuildNumber() {

@@ -2,26 +2,26 @@ package com.buildcoin.plugins.jenkins.model;
 
 public class JobState {
 
-	private String name;
+	private String jobName;
 
-	private String url;
+	private String jobUrl;
 
 	private BuildState build;
 
-	public String getName() {
-		return name;
+	public String getJobName() {
+		return jobName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setJobName(String jobName) {
+		this.jobName = jobName;
 	}
 
-	public String getUrl() {
-		return url;
+	public String getJobUrl() {
+		return jobUrl;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setJobUrl(String jobUrl) {
+		this.jobUrl = jobUrl;
 	}
 
 	public BuildState getBuild() {
