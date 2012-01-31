@@ -6,15 +6,11 @@ public class BuildCause {
 	
 	private CauseType causeType;
 	
+	private UpstreamBuild upstreamBuild;
+	
 	private String shortDescription;
 	
-	private int upstreamBuildNumber;
-	
-	private String upstreamProject;
-	
 	private String userName;
-	
-	private String upstreamBuildUrl;
 	
 	public CauseType getCauseType() {
 		return causeType;
@@ -22,6 +18,14 @@ public class BuildCause {
 
 	public void setCauseType(CauseType causeType) {
 		this.causeType = causeType;
+	}
+	
+	public UpstreamBuild getUpstreamBuild() {
+		return upstreamBuild;
+	}
+
+	public void setUpstreamBuild(UpstreamBuild upstreamBuild) {
+		this.upstreamBuild = upstreamBuild;
 	}
 	
 	public String getShortDescription() {
@@ -38,30 +42,6 @@ public class BuildCause {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
-	}
-	
-	public String getUpstreamProject() {
-		return upstreamProject;
-	}
-
-	public void setUpstreamProject(String upstreamProject) {
-		this.upstreamProject = upstreamProject;
-	}
-	
-	public int getUpstreamBuildNumber() {
-		return upstreamBuildNumber;
-	}
-	
-	public void setUpstreamBuildNumber(int upstreamBuildNumber) {
-		this.upstreamBuildNumber = upstreamBuildNumber;
-	}
-
-	public String getUpstreamBuildUrl() {
-		return upstreamBuildUrl;
-	}
-
-	public void setUpstreamBuildUrl(String upstreamBuildUrl) {
-		this.upstreamBuildUrl = upstreamBuildUrl;
 	}
 	
 }

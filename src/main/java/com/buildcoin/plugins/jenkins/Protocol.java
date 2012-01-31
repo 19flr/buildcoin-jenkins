@@ -8,10 +8,10 @@ import hudson.model.Cause.*;
 import hudson.model.ParameterValue;
 import hudson.model.ParametersAction;
 import hudson.model.Run;
+import hudson.model.Hudson;
 import hudson.triggers.SCMTrigger.SCMTriggerCause;
 import hudson.triggers.TimerTrigger.TimerTriggerCause;
 import hudson.scm.ChangeLogSet.Entry;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.DatagramPacket;
@@ -29,10 +29,7 @@ import java.util.List;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.buildcoin.plugins.jenkins.model.BuildState;
-import com.buildcoin.plugins.jenkins.model.BuildCause;
-import com.buildcoin.plugins.jenkins.model.JobState;
-import com.buildcoin.plugins.jenkins.model.ScmChange;
+import com.buildcoin.plugins.jenkins.model.*;
 
 @SuppressWarnings("rawtypes")
 public enum Protocol {
@@ -96,7 +93,7 @@ public enum Protocol {
 		buildState.setStatus(status);
 		
 		try {
-			buildState.setFullUrl(run.getAbsoluteUrl());
+			buildState.setFullUrl(Hudson.getInstance().getRootUrl() + run.getBuildStatusUrl());
 		} catch (IllegalStateException ignored) {
 			// Ignored
 		}
@@ -130,13 +127,15 @@ public enum Protocol {
 					buildCause.setCauseType(CauseType.REMOTE);
 				} else if (cause.getClass() == Cause.UpstreamCause.class) {
 					UpstreamCause upstreamCause = (UpstreamCause)cause;
+					UpstreamBuild upstreamBuild = new UpstreamBuild();
 					buildCause.setCauseType(CauseType.UPSTREAM);
-					buildCause.setUpstreamBuildNumber(upstreamCause.getUpstreamBuild());
-					buildCause.setUpstreamBuildUrl(upstreamCause.getUpstreamUrl());
-					buildCause.setUpstreamProject(upstreamCause.getUpstreamProject());
+					upstreamBuild.setBuildNumber(upstreamCause.getUpstreamBuild());
+					upstreamBuild.setBuildUrl(Hudson.getInstance().getRootUrl() + upstreamCause.getUpstreamUrl());
+					upstreamBuild.setProjectName(upstreamCause.getUpstreamProject());
+					buildCause.setUpstreamBuild(upstreamBuild);
 				} else if (cause.getClass() == Cause.UserCause.class || cause.getClass() == Cause.UserIdCause.class) {
 					buildCause.setCauseType(CauseType.MANUAL);
-					if (cause.getClass() == Cause.UserCause.class) {
+					if (cause.getClass() == Cause.UserCause.class) { // for backward compatibility
 						UserCause userCause = (UserCause)cause;
 						buildCause.setUserName(userCause.getUserName());
 					} else {
