@@ -4,9 +4,12 @@ import hudson.EnvVars;
 import hudson.model.AbstractBuild;
 import hudson.model.Job;
 import hudson.model.Cause;
+import hudson.model.Cause.*;
 import hudson.model.ParameterValue;
 import hudson.model.ParametersAction;
 import hudson.model.Run;
+import hudson.triggers.SCMTrigger.SCMTriggerCause;
+import hudson.triggers.TimerTrigger.TimerTriggerCause;
 import hudson.scm.ChangeLogSet.Entry;
 
 import java.io.IOException;
@@ -22,7 +25,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -124,6 +126,30 @@ public enum Protocol {
 			for (Cause cause : build.getCauses()) {
 				BuildCause buildCause = new BuildCause();
 				buildCause.setShortDescription(cause.getShortDescription());
+				if (cause.getClass() == Cause.RemoteCause.class) {
+					buildCause.setCauseType(CauseType.REMOTE);
+				} else if (cause.getClass() == Cause.UpstreamCause.class) {
+					UpstreamCause upstreamCause = (UpstreamCause)cause;
+					buildCause.setCauseType(CauseType.UPSTREAM);
+					buildCause.setUpstreamBuildNumber(upstreamCause.getUpstreamBuild());
+					buildCause.setUpstreamBuildUrl(upstreamCause.getUpstreamUrl());
+					buildCause.setUpstreamProject(upstreamCause.getUpstreamProject());
+				} else if (cause.getClass() == Cause.UserCause.class || cause.getClass() == Cause.UserIdCause.class) {
+					buildCause.setCauseType(CauseType.MANUAL);
+					if (cause.getClass() == Cause.UserCause.class) {
+						UserCause userCause = (UserCause)cause;
+						buildCause.setUserName(userCause.getUserName());
+					} else {
+						UserIdCause userCause = (UserIdCause)cause;
+						buildCause.setUserName(userCause.getUserName());
+					}
+				} else if(cause.getClass() == SCMTriggerCause.class) {
+					buildCause.setCauseType(CauseType.SCMTRIGGERED);
+				} else if(cause.getClass() == TimerTriggerCause.class) {
+					buildCause.setCauseType(CauseType.TIMERTRIGGERED);
+				} else {
+					buildCause.setCauseType(CauseType.UNKNOWN);
+				}
 				buildCauses.add(buildCause);
 			}
 			buildState.setCauses(buildCauses);
