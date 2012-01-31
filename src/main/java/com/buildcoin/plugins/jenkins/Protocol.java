@@ -130,8 +130,9 @@ public enum Protocol {
 					UpstreamBuild upstreamBuild = new UpstreamBuild();
 					buildCause.setCauseType(CauseType.UPSTREAM);
 					upstreamBuild.setBuildNumber(upstreamCause.getUpstreamBuild());
-					upstreamBuild.setBuildUrl(Hudson.getInstance().getRootUrl() + upstreamCause.getUpstreamUrl());
+					upstreamBuild.setBuildUrl(Hudson.getInstance().getRootUrl() + upstreamCause.getUpstreamUrl() + upstreamBuild.getBuildNumber());
 					upstreamBuild.setProjectName(upstreamCause.getUpstreamProject());
+					upstreamBuild.setProjectUrl(Hudson.getInstance().getRootUrl() + upstreamCause.getUpstreamUrl());
 					buildCause.setUpstreamBuild(upstreamBuild);
 				} else if (cause.getClass() == Cause.UserCause.class || cause.getClass() == Cause.UserIdCause.class) {
 					buildCause.setCauseType(CauseType.MANUAL);

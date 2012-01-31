@@ -2,9 +2,11 @@ package com.buildcoin.plugins.jenkins.model;
 
 public class UpstreamBuild {
 	
-	private int buildNumber;
-	
 	private String projectName;
+	
+	private String projectUrl;
+	
+	private int buildNumber;
 	
 	private String buildUrl;
 	
@@ -14,6 +16,14 @@ public class UpstreamBuild {
 
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
+	}
+	
+	public String getProjectUrl() {
+		return projectUrl;
+	}
+
+	public void setProjectUrl(String projectUrl) {
+		this.projectUrl = projectUrl;
 	}
 	
 	public int getBuildNumber() {
