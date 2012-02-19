@@ -26,6 +26,8 @@ import java.net.URLConnection;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.PostMethod;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -33,44 +35,18 @@ import com.buildcoin.plugins.jenkins.model.*;
 
 @SuppressWarnings("rawtypes")
 public enum Protocol {
-
-	UDP {
-		@Override
-		protected void send(String url, byte[] data) throws IOException {
-            HostnamePort hostnamePort = HostnamePort.parseUrl(url);
-            DatagramSocket socket = new DatagramSocket();
-            DatagramPacket packet = new DatagramPacket(data, data.length, InetAddress.getByName(hostnamePort.hostname), hostnamePort.port);
-            socket.send(packet);
-		}
-		
-	},
-	TCP {
-		@Override
-		protected void send(String url, byte[] data) throws IOException {
-            HostnamePort hostnamePort = HostnamePort.parseUrl(url);
-            SocketAddress endpoint = new InetSocketAddress(InetAddress.getByName(hostnamePort.hostname), hostnamePort.port);
-            Socket socket = new Socket();
-            socket.connect(endpoint);
-            OutputStream output = socket.getOutputStream();
-            output.write(data);
-            output.flush();
-            output.close();
-		}
-	},
+	
 	HTTP {
 		@Override
-		protected void send(String url, byte[] data) throws IOException {
-            URL targetUrl = new URL(url);
-            URLConnection connection = targetUrl.openConnection();
-            if (connection instanceof HttpURLConnection)
-                ((HttpURLConnection) connection)
-                        .setFixedLengthStreamingMode(data.length);
-            connection.setDoInput(false);
-            connection.setDoOutput(true);
-            OutputStream output = connection.getOutputStream();
-            output.write(data);
-            output.flush();
-            output.close();
+		protected void send(String url, String data) throws IOException {
+			// initialize the POST method
+			PostMethod post = new PostMethod(url);
+			post.addParameter("payload", data);
+
+			// execute the POST
+			HttpClient client = new HttpClient();
+			int status = client.executeMethod(post); 
+			String response = post.getResponseBodyAsString();
 		}
 	};
 
@@ -82,7 +58,7 @@ public enum Protocol {
 	}
 
 	@SuppressWarnings("deprecation")
-	private byte[] buildMessage(Job job, Run run, Phase phase, String status) {
+	private String buildMessage(Job job, Run run, Phase phase, String status) {
 		String rootUrl = Hudson.getInstance().getRootUrl();
 		JobState jobState = new JobState();
 		jobState.setJobName(job.getName());
@@ -150,9 +126,9 @@ public enum Protocol {
 			buildState.setCauses(buildCauses);
 		}
 
-		return gson.toJson(jobState).getBytes();
+		return gson.toJson(jobState);
 	}
 
-	abstract protected void send(String url, byte[] data) throws IOException;
+	abstract protected void send(String url, String data) throws IOException;
 
 }
