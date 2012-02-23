@@ -46,8 +46,10 @@ public enum Protocol {
 			post.addParameter("payload", data);
 
 			HttpConnectionManagerParams connectionParams = new HttpConnectionManagerParams();
-			connectionParams.setConnectionTimeout(30000);
-			connectionParams.setSoTimeout(30000);
+			int connTimeout = 10000;
+			int sockTimeout = 10000;
+			connectionParams.setConnectionTimeout(connTimeout);
+			connectionParams.setSoTimeout(sockTimeout);
 			
 			// execute the POST
 			HttpClient client = new HttpClient();
