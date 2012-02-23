@@ -28,6 +28,8 @@ import java.util.List;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
+import org.apache.commons.httpclient.HttpConnectionManager;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -43,8 +45,13 @@ public enum Protocol {
 			PostMethod post = new PostMethod(url);
 			post.addParameter("payload", data);
 
+			HttpConnectionManagerParams connectionParams = new HttpConnectionManagerParams();
+			connectionParams.setConnectionTimeout(30000);
+			connectionParams.setSoTimeout(30000);
+			
 			// execute the POST
 			HttpClient client = new HttpClient();
+			client.getHttpConnectionManager().setParams(connectionParams);
 			int status = client.executeMethod(post); 
 			String response = post.getResponseBodyAsString();
 		}
