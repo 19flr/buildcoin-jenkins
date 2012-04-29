@@ -8,28 +8,28 @@
 		<version>1.446</version><!-- version of Jenkins to build with -->
 	</parent>
 	
-	<description>Sends notifications about jobs to buildcoin</description>
+	<description>Sends notifications about jobs to Buildcoin.com to power the team CI game, reports, and other awesomeness.</description>
 	<url>http://buildcoin.com</url>
 	<groupId>com.buildcoin.plugins.jenkins</groupId>
 	<artifactId>buildcoin-jenkins</artifactId>
 	<version>1.0</version>
 	<packaging>hpi</packaging>
-
-	<repositories>
-		<repository>
-			<id>m.g.o-public</id>
-			<url>http://maven.glassfish.org/content/groups/public/</url>
-		</repository>
-	</repositories>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>m.g.o-public</id>
-			<url>http://maven.glassfish.org/content/groups/public/</url>
-		</pluginRepository>
-	</pluginRepositories>
 	
-	<dependencies>
+	<repositories>
+        <repository>
+            <id>repo.jenkins-ci.org</id>
+            <url>http://repo.jenkins-ci.org/public/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>repo.jenkins-ci.org</id>
+            <url>http://repo.jenkins-ci.org/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+    
+    <dependencies>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
