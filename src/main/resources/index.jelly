@@ -1,5 +1,3 @@
 <div>
-	This plugin from
-	<a href="http://buildcoin.com">Buildcoin</a>
-	allows sending of job status for Buildcoin development gamification and awesomeization.
+	Sends job status to <a href="https://buildcoin.com" target="_blank">Buildcoin.com</a> for the team CI game, reports, and other awesomeness.
 </div>

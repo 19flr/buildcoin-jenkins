@@ -1,11 +1,11 @@
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
 	xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
 
-	<f:section title="Buildcoin Company Key">
-		<f:entry title="Key" description="Enter your company API key. Get it on buildcoin.com." field="buildcoinKey">
+	<f:section title="Buildcoin">
+		<f:entry title="API Key" description="Enter the company API key from buildcoin.com." field="buildcoinKey">
 			<f:textbox name="buildcoinKey" value="${descriptor.getBuildcoinKey()}" />
 		</f:entry>
-		<f:entry title="Debug Mode" field="buildcoinUrl">
+		<f:entry title="Debug Mode">
 			<f:checkbox name="buildcoinDebugMode" title="For bc developers only!" checked="${descriptor.isDebugMode()}" />
 		</f:entry>
 	</f:section>

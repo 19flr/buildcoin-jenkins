@@ -1,0 +1,12 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
+	xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+
+	<f:section title="Buildcoin">
+		<f:entry title="Disable Buildcoin" field="buildcoinJobDisabled">
+			<f:checkbox title="Disable Buildcoin for this job" />
+		</f:entry>
+		<f:entry title="API Key" description="Enter the company API key from buildcoin.com. If this is left blank, we'll use the API Key defined in the global configuration." field="buildcoinJobKey">
+			<f:textbox />
+		</f:entry>
+	</f:section>
+</j:jelly>

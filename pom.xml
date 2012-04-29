@@ -12,7 +12,7 @@
 	<url>http://buildcoin.com</url>
 	<groupId>com.buildcoin.plugins.jenkins</groupId>
 	<artifactId>buildcoin-jenkins</artifactId>
-	<version>0.0.1</version>
+	<version>1.0</version>
 	<packaging>hpi</packaging>
 
 	<repositories>
