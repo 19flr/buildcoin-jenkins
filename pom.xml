@@ -27,12 +27,6 @@
             <id>repo.jenkins-ci.org</id>
             <url>http://repo.jenkins-ci.org/public/</url>
         </pluginRepository>
-        <pluginRepository> 
-            <id>jenkins-m2-repository</id> 
-            <name>Jenkins Plugin Repository</name> 
-            <url>http://maven.jenkins-ci.org:8081/content/repositories/releases/</url> 
-            <layout>default</layout> 
-        </pluginRepository>
     </pluginRepositories>
     
     <dependencies>
